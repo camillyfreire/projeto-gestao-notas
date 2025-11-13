@@ -1,0 +1,15 @@
+Arquivos de cache do Python
+
+pycache/
+*.pyc
+
+Arquivo de conexão com a senha do banco
+
+(Este é o arquivo mais importante a ser ignorado!)
+
+database/conexao.py
+
+Arquivos de ambiente virtual (se você usar)
+
+.venv/
+venv/
