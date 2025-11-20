@@ -75,10 +75,6 @@ def listar_usuarios():
     return usuarios
 
 def login_usuario(email: str, senha: str) -> Usuario | None:
-    """
-    Tenta autenticar um usuário.
-    Retorna o objeto Usuario se o login for bem-sucedido, None caso contrário.
-    """
     try:
         conn = conectar()
         if conn is None:

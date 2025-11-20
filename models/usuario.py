@@ -11,17 +11,9 @@ class Usuario:
         self.senha_hash = senha_hash # O hash será salvo aqui quando buscarmos do DB
 
     def set_senha(self, senha: str):
-        """
-        Gera um hash seguro para a senha informada
-        e o armazena no atributo senha_hash.
-        """
         self.senha_hash = generate_password_hash(senha, method='pbkdf2:sha256')
 
     def check_senha(self, senha: str) -> bool:
-        """
-        Verifica se a senha informada corresponde ao hash armazenado.
-        Retorna True se for igual, False caso contrário.
-        """
         if self.senha_hash is None:
             return False
         return check_password_hash(self.senha_hash, senha)

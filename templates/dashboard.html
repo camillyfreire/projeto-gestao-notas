@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block conteudo %}
+    <h1>Painel de Controle</h1>
+    <p>Seu perfil: <strong>{{ session.get('usuario_perfil') }}</strong></p>
+
+    <div class="menu-opcoes">
+        {% if session.get('usuario_perfil') == 'ADMIN' %}
+            <h3>Administração</h3>
+            <a href="{{ url_for('cadastro_usuario') }}"><button>Cadastrar Novo Usuário</button></a>
+            <a href="{{ url_for('cadastro_disciplina') }}"><button>Cadastrar Disciplina</button></a>
+        {% endif %}
+
+        {% if session.get('usuario_perfil') == 'PROFESSOR' %}
+            <h3>Professor</h3>
+            <a href="{{ url_for('lancar_notas') }}"><button>Lançar Notas</button></a>
+        {% endif %}
+
+        <h3>Consultas</h3>
+        <a href="{{ url_for('meu_boletim') }}"><button>Ver Boletim / Notas</button></a>
+    </div>
+{% endblock %}

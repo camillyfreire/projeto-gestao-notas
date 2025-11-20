@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gestão Escolar</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <div class="logo">🎓 Sistema Escolar</div>
+        <nav>
+            {% if session.get('usuario_id') %}
+                <span>Olá, {{ session.get('usuario_nome') }}</span>
+                <a href="{{ url_for('dashboard') }}">Início</a>
+                <a href="{{ url_for('logout') }}">Sair</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    <div class="container">
+        <!-- Espaço para mensagens de erro/sucesso -->
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for msg in messages %}
+                    <div class="alert">{{ msg }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <!-- Aqui entra o conteúdo das outras páginas -->
+        {% block conteudo %}{% endblock %}
+    </div>
+</body>
+</html>

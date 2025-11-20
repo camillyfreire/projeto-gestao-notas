@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block conteudo %}
+    <h2>Meu Boletim</h2>
+    
+    {% if notas %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Disciplina</th>
+                    <th>Avaliação</th>
+                    <th>Nota</th>
+                    <th>Data</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for nota in notas %}
+                <tr>
+                    <td>{{ nota.disciplina }}</td>
+                    <td>{{ nota.descricao }}</td>
+                    <td><strong>{{ nota.valor }}</strong></td>
+                    <td>{{ nota.data }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Você ainda não possui notas lançadas.</p>
+    {% endif %}
+    
+    <br>
+    <a href="{{ url_for('dashboard') }}">Voltar ao Início</a>
+{% endblock %}

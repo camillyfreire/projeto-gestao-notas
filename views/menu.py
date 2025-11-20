@@ -36,7 +36,7 @@ def _menu_criar_usuario():
         nome = input("Nome: ")
         email = input("Email: ")
         
-        # Pede a senha de forma segura (não mostra no terminal)
+        # Senha Segura
         senha = getpass.getpass("Senha: ") 
         senha_conf = getpass.getpass("Confirme a Senha: ")
 
@@ -47,18 +47,14 @@ def _menu_criar_usuario():
         print("Perfis disponíveis:", Perfil.listar_perfis())
         perfil_input = input("Perfil (ALUNO, PROFESSOR, ADMIN): ").upper()
         
-        # Converte a string de input para o Enum
         perfil = Perfil(perfil_input) 
         
-        # 1. Cria o objeto
         novo_usuario = Usuario(nome=nome, email=email, perfil=perfil)
-        # 2. Define o hash da senha
         novo_usuario.set_senha(senha)
-        # 3. Manda para o controlador salvar no DB
         criar_usuario(novo_usuario)
 
     except ValueError as e:
-        print(f"Erro: {e}") # Ex: "Nome muito curto!" ou "Perfil inválido"
+        print(f"Erro: {e}") 
     except Exception as e:
         print(f"Erro inesperado ao criar usuário: {e}")
 
@@ -69,8 +65,7 @@ def _menu_listar_usuarios():
         print("Nenhum usuário cadastrado.")
     else:
         for u in usuarios:
-            print(u) # O método __str__ do modelo será chamado
-
+            print(u)
 def _menu_login():
     print("\n--- Login ---")
     try:
@@ -81,8 +76,6 @@ def _menu_login():
         
         if usuario_logado:
             print(f"Acesso liberado para: {usuario_logado}")
-            # Aqui, no futuro, você chamaria um outro menu
-            # (ex: menu_aluno(), menu_professor())
         else:
             print("Acesso negado.")
             

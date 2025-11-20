@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block conteudo %}
+    <h2>Lançar Notas</h2>
+    <form method="post">
+        <label>Selecione o Aluno:</label>
+        <select name="aluno_id">
+            {% for aluno in alunos %}
+                <option value="{{ aluno.id }}">{{ aluno.nome }}</option>
+            {% endfor %}
+        </select>
+
+        <label>Selecione a Disciplina:</label>
+        <select name="disciplina_id">
+            {% for disciplina in disciplinas %}
+                <option value="{{ disciplina['id'] }}">{{ disciplina['nome'] }} (Prof. {{ disciplina['professor'] }})</option>
+            {% endfor %}
+        </select>
+
+        <label>Descrição da Avaliação:</label>
+        <input type="text" name="descricao" required placeholder="Ex: Prova 1, Trabalho...">
+
+        <label>Nota (0 a 10):</label>
+        <input type="number" name="valor" step="0.1" min="0" max="10" required>
+
+        <button type="submit">Lançar Nota</button>
+    </form>
+    <br>
+    <a href="{{ url_for('dashboard') }}">Voltar</a>
+{% endblock %}

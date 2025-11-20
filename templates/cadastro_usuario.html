@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block conteudo %}
+    <h2>Cadastrar Novo Usuário</h2>
+    <form method="post">
+        <label>Nome Completo:</label>
+        <input type="text" name="nome" required>
+
+        <label>Email:</label>
+        <input type="email" name="email" required>
+
+        <label>Senha:</label>
+        <input type="password" name="senha" required>
+
+        <label>Perfil:</label>
+        <select name="perfil">
+            {% for perfil in perfis %}
+                <option value="{{ perfil }}">{{ perfil }}</option>
+            {% endfor %}
+        </select>
+
+        <button type="submit">Cadastrar</button>
+    </form>
+    <br>
+    <a href="{{ url_for('dashboard') }}">Voltar</a>
+{% endblock %}
