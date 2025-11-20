@@ -1,53 +1,97 @@
-Projeto de Gestão de Notas
+Sistema de Gestão de Notas Escolar (Web)
 
-Este projeto é um Sistema de Gestão de Notas em Python, desenvolvido para a disciplina de LP3, utilizando PostgreSQL como banco de dados.
+Este é um sistema web completo para gestão escolar, desenvolvido em Python utilizando o microframework Flask e banco de dados PostgreSQL.
 
-1. Configuração do Banco de Dados
+O sistema substitui a antiga interface de terminal por uma interface web amigável, permitindo o gerenciamento de usuários, disciplinas e notas com controle de acesso baseado em perfis.
 
-Crie um novo banco de dados no PostgreSQL (ex: gestao_notas).
+🚀 Funcionalidades
 
-Abra a "Query Tool" para este banco e execute o script contido no arquivo BANCO_DE_DADOS.sql para criar todas as tabelas e tipos necessários.
+Autenticação e Segurança: Login com criptografia de senhas (hash pbkdf2:sha256).
 
-2. Configuração do Projeto
+Controle de Acesso (Perfis):
 
-Para rodar o projeto, é necessário configurar a conexão com o banco e instalar as dependências.
+ADMIN: Acesso total. Pode cadastrar novos usuários (Alunos/Professores) e criar disciplinas.
 
-Dependências
+PROFESSOR: Pode lançar notas para os alunos nas disciplinas cadastradas.
 
-O projeto utiliza as bibliotecas psycopg2-binary (para a conexão) e werkzeug (para a segurança das senhas).
+ALUNO: Acesso de consulta ao seu próprio boletim de notas.
 
-pip install psycopg2-binary werkzeug
+Interface Web: Dashboard responsivo com HTML5 e CSS3.
+
+🛠️ Tecnologias Utilizadas
+
+Backend: Python 3
+
+Web Framework: Flask
+
+Banco de Dados: PostgreSQL
+
+Driver de Banco: Psycopg2
+
+Segurança: Werkzeug Security
+
+Frontend: Jinja2 Templates, HTML, CSS
+
+⚙️ Guia de Instalação e Execução
+
+1. Pré-requisitos
+
+Certifique-se de ter o Python e o PostgreSQL instalados em sua máquina.
+
+2. Configuração do Banco de Dados
+
+Abra o pgAdmin ou seu cliente SQL preferido.
+
+Crie um banco de dados chamado gestao_notas.
+
+Abra a ferramenta de consulta (Query Tool) e execute o script contido no arquivo BANCO_DE_DADOS.sql (presente na raiz deste projeto) para criar as tabelas e relacionamentos.
+
+3. Instalação das Dependências
+
+Abra o terminal na pasta do projeto e execute:
+
+pip install flask psycopg2-binary werkzeug
 
 
-Arquivo de Conexão
+4. Configuração da Conexão Segura
 
-Por razões de segurança, o arquivo database/conexao.py não está no repositório. Crie este arquivo manualmente com a seguinte estrutura, substituindo pelas suas credenciais locais:
+Por segurança, as credenciais do banco de dados não são versionadas.
+Você deve criar manualmente um arquivo chamado conexao.py dentro da pasta database/ com o seguinte conteúdo:
 
 import psycopg2
 
-# ATUALIZE COM OS DADOS DO SEU BANCO
-DB_NAME = "gestao_notas"
-DB_USER = "postgres"
-DB_PASS = "sua_senha_aqui" # <-- MUDE AQUI
-DB_HOST = "localhost"
-DB_PORT = "5432"
-
+# Substitua pelos seus dados locais
 def conectar():
     try:
         return psycopg2.connect(
-            database=DB_NAME,
-            user=DB_USER,
-            password=DB_PASS,
-            host=DB_HOST,
-            port=DB_PORT
+            database="gestao_notas",
+            user="postgres",
+            password="SUA_SENHA_AQUI",
+            host="localhost",
+            port="5432"
         )
-    except psycopg2.Error as e:
-        print(f"Erro ao conectar ao banco de dados: {e}")
+    except Exception as e:
+        print(f"Erro de conexão: {e}")
         return None
 
 
-3. Execução
+5. Executando o Sistema
 
-Após configurar o banco e o arquivo conexao.py, execute o programa principal:
+Para iniciar o servidor web, execute o comando na raiz do projeto:
 
-python main.py
+python app.py
+
+
+O sistema estará acessível em seu navegador no endereço:
+http://127.0.0.1:5000
+
+👤 Primeiro Acesso (Admin)
+
+Como o banco de dados inicia vazio, não haverá usuários para fazer login.
+Para o primeiro acesso, você deve:
+
+Rodar o script legado main.py (via terminal) para criar um usuário com perfil ADMIN.
+
+Ou inserir manualmente um usuário na tabela usuario do banco de dados.
+
+Após criar o primeiro Admin, os demais cadastros podem ser feitos diretamente pela interface web do sistema.
